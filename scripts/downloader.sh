@@ -42,7 +42,7 @@ fi
 
 ZIP_NAME="opensearch-analysis-seunjeon-${PLUGIN_VERSION}.zip"
 TMP_DIR="/tmp/opensearch-analysis-seunjeon"
-mkdir -p $TMP_DIR/opensearch
+mkdir -p $TMP_DIR
 
 ########################################################################################################################
 # download zip
@@ -58,7 +58,7 @@ pushd $TMP_DIR
 
 ########################################################################################################################
 # build properties file
-PROPERTI_FILE="opensearch/plugin-descriptor.properties"
+PROPERTI_FILE="plugin-descriptor.properties"
 
 cat > $PROPERTI_FILE << EOF
 description=The Korean(seunjeon) analysis plugin.
@@ -71,7 +71,7 @@ EOF
 
 ########################################################################################################################
 # zipping...
-zip -r $ZIP_NAME opensearch
+zip $ZIP_NAME $PROPERTI_FILE
 if [ "$?" -ne "0" ]; then
     exit 1
 fi

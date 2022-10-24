@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 TMP_DIR="/tmp/build"
-mkdir -p $TMP_DIR/opensearch
-mkdir -p $TMP_DIR/project
 
 cd $TMP_DIR
 

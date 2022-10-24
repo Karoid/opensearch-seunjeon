@@ -1,29 +1,41 @@
+## For release new version
 # docker buildx create --use
-# docker buildx build --platform linux/amd64,linux/arm64 -t karoid/postgres-textsearch_ko:14-bullseye -t karoid/postgres-textsearch_ko:latest --push .
+# docker buildx build --platform linux/amd64,linux/arm64 -t karoid/opensearch-seunjeon:2.3.0.0 -t karoid/opensearch-seunjeon:latest --push .
+
+## For debugging command lines
+# docker run --rm -it --user root opensearchproject/opensearch:2.3.0 bash
 
 ARG OPENSEARCH_VERSION="2.3.0"
 FROM opensearchproject/opensearch:$OPENSEARCH_VERSION
 ARG OPENSEARCH_VERSION
-# https://bitbucket.org/soosinha/seunjeon-opensearch/src/main/opensearch/
 ARG SEUNJEON_VERSION="2.3.0.0"
 
-# docker run --rm -it --user root opensearchproject/opensearch:2.3.0 bash
+RUN mkdir -p /tmp/build && cd /tmp/build
+
+COPY ./scripts/downloader.sh /tmp/build
+USER root
 
 # install plugin to opensearch
 RUN yum install wget zip -y \
-  && echo '1'
+  && cd /tmp/build \
+  && chmod 700 downloader.sh \
+  && ./downloader.sh -e $OPENSEARCH_VERSION -p $SEUNJEON_VERSION \
+  && $(dirname $(which opensearch))/opensearch-plugin install file://`pwd`/opensearch-analysis-seunjeon-2.3.0.0.zip \
+  && rm -r /tmp/build \
+  && yum remove wget zip -y
+USER opensearch
 
-# RUN git clone https://bitbucket.org/eunjeon/mecab-ko.git \
-#   && cd mecab-ko \
-#   && wget 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.guess;hb=HEAD' -O config.guess \
-#   && wget 'http://git.savannah.gnu.org/gitweb/?p=config.git;a=blob_plain;f=config.sub;hb=HEAD' -O config.sub \
-#   && ./configure \
-#   && make all \
-#   && make install
+EXPOSE 9200 9300 9600 9650
 
-# Cleaning
-# RUN apt-get remove -y build-essential git wget autoconf
-# RUN rm -rf mecab-*
+# Label
+LABEL org.label-schema.schema-version="1.0" \
+  org.label-schema.name="opensearch" \
+  org.label-schema.version="$OS_VERSION" \
+  org.label-schema.url="https://opensearch.org" \
+  org.label-schema.vcs-url="https://github.com/OpenSearch" \
+  org.label-schema.license="Apache-2.0" \
+  org.label-schema.vendor="OpenSearch"
 
-# EXPOSE 5432
-# CMD ["postgres"]
+# CMD to run
+ ENTRYPOINT ["./opensearch-docker-entrypoint.sh"]
+ CMD ["opensearch"]
