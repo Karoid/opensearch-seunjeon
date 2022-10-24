@@ -46,7 +46,7 @@ mkdir -p $TMP_DIR/opensearch
 
 ########################################################################################################################
 # download zip
-REMOTE_FILE_NAME="https://oss.sonatype.org/service/local/repositories/releases/content/org/bitbucket/eunjeon/opensearch-analysis-seunjeon/${PLUGIN_VERSION}/${ZIP_NAME}"
+REMOTE_FILE_NAME="https://github.com/Karoid/opensearch-seunjeon/releases/download/${PLUGIN_VERSION}/${ZIP_NAME}"
 wget -O ${TMP_DIR}/${ZIP_NAME} $REMOTE_FILE_NAME
 if [ "$?" -ne "0" ]; then
     echo "invalid path $REMOTE_FILE_NAME"

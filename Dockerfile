@@ -5,18 +5,13 @@ ARG OPENSEARCH_VERSION="2.3.0"
 FROM opensearchproject/opensearch:$OPENSEARCH_VERSION
 ARG OPENSEARCH_VERSION
 # https://bitbucket.org/soosinha/seunjeon-opensearch/src/main/opensearch/
-ARG SEUNJEON_VERSION="1.0.0.0"
+ARG SEUNJEON_VERSION="2.3.0.0"
 
 # docker run --rm -it --user root opensearchproject/opensearch:2.3.0 bash
 
-# build zip
-RUN 
-
 # install plugin to opensearch
 RUN yum install wget zip -y \
-  && cd /usr/share/opensearch \
-  && bash <(curl -s https://bitbucket.org/soosinha/seunjeon-opensearch/raw/main/opensearch/scripts/downloader.sh) -e $OPENSEARCH_VERSION -p $SEUNJEON_VERSION \
-  && ./bin/opensearch-plugin install file://`pwd`/opensearch-analysis-seunjeon-$SEUNJEON_VERSION.zip
+  && echo '1'
 
 # RUN git clone https://bitbucket.org/eunjeon/mecab-ko.git \
 #   && cd mecab-ko \

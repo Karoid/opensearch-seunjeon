@@ -6,8 +6,8 @@ opensearch로 한국어 검색 환경을 구축할 수 있는 Docker image build
 ## Making plugin
 ```bash
 # download plugin
-bash <(curl -s https://bitbucket.org/eunjeon/seunjeon-opensearch/raw/master/opensearch/scripts/downloader.sh) -e <opensearch-version> -p <plugin-version>
-  에제) $ bash <(curl -s https://bitbucket.org/eunjeon/seunjeon-opensearch/raw/master/opensearch/scripts/downloader.sh) -e 2.3.0 -p 2.3.0.0
+bash <(curl -s https://raw.githubusercontent.com/Karoid/opensearch-seunjeon/main/scripts/downloader.sh) -e <opensearch-version> -p <plugin-version>
+  에제) $ bash <(curl -s https://raw.githubusercontent.com/Karoid/opensearch-seunjeon/main/scripts/downloader.sh) -e 2.3.0 -p 2.3.0.0
 
 # install plugin
 ./bin/opensearch-plugin install file://`pwd`/opensearch-analysis-seunjeon-<plugin-version>.zip
