@@ -23,7 +23,7 @@ $(dirname $(which opensearch))/opensearch-plugin install file://`pwd`/opensearch
 ## docker 단독 사용
 docker hub에서 받아서 사용하는 경우
 ```bash
-docker run -d -p 9200:9200 --rm -v opensearch:/usr/share/opensearch/data -e "discovery.type=single-node" karoid/opensearch-seunjeon:2.3.0
+docker run -d -p 9200:9200 --rm -v opensearch:/usr/share/opensearch/data -e "discovery.type=single-node" karoid/opensearch-seunjeon:2.3.0.0
 ```
 프로젝트로 빌드해서 사용하는 경우
 ```bash
@@ -36,7 +36,7 @@ version: "3.9"
 
 services:
   elasticsearch:
-    image: karoid/opensearch-seunjeon:2.3.0
+    image: karoid/opensearch-seunjeon:2.3.0.0
     environment:
       - discovery.type=single-node
       - bootstrap.memory_lock=true
