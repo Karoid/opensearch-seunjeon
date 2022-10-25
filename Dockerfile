@@ -1,6 +1,6 @@
 ## For release new version
 # docker buildx create --use
-# docker buildx build --platform linux/amd64,linux/arm64 -t karoid/opensearch-seunjeon:2.3.0.0 -t karoid/opensearch-seunjeon:latest --push .
+# docker buildx build --build-arg OPENSEARCH_VERSION=1.3.6 --platform linux/amd64,linux/arm64 -t karoid/opensearch-seunjeon:1.3.6.0 --push .
 
 ## For debugging command lines
 # docker run --rm -it --user root opensearchproject/opensearch:2.3.0 bash
