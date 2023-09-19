@@ -80,12 +80,10 @@ curl -XPUT --insecure -u admin:admin 'https://localhost:9200/test/'  -H 'Content
     }
   },
   "mappings": {
-    "text" : {
-      "properties" : {
-        "text" : {
-          "type" : "string",
-          "analyzer": "korean"
-        }
+    "properties" : {
+      "text" : {
+        "type" : "text",
+        "analyzer": "korean"
       }
     }
   }
